@@ -1,0 +1,36 @@
+#cloud-config
+password: Parola01
+chpasswd: {expire: False}
+ssh_pwauth: True
+sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+timezone: Europe/Istanbul
+
+runcmd: 
+ - systemctl disable cloud-config.service
+ - systemctl disable cloud-final.service
+ - systemctl disable cloud-init-local.service
+ - systemctl disable cloud-init.service
+ - localectl set-keymap trq
+ - sed -i 's/ONBOOT=no/ONBOOT=yes/g' /etc/sysconfig/network-scripts/ifcfg-eth0
+ - systemctl restart NetworkManager
+# - systemctl enable docker.service
+# - usermod -a -G docker centos
+
+
+yum_repos:
+ docker-ce-stable:
+  baseurl=https://download.docker.com/linux/centos/7/$basearch/stable
+  enabled=1
+  gpgcheck=1
+  gpgkey=https://download.docker.com/linux/centos/gpg
+
+package_update: true
+packages:
+ - yum-utils
+ - device-mapper-persistent-data
+ - lvm2
+ - https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
+ - docker-ce
+ - docker-ce-cli
+ - vim
+
