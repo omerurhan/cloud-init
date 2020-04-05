@@ -1,8 +1,10 @@
+default:
+  image: 'genisoimage:latest'
+
 stages:
   - build
 
 job 0:
   stage: build
   script:
-    - git fetch origin
-    - genisoimage -output /var/lib/libvirt/images/iso-files/centos.iso -volid cidata -joliet -rock user-data meta-data
+    - genisoimage -output . -volid cidata -joliet -rock user-data meta-data
