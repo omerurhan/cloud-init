@@ -1,5 +1,5 @@
 default:
-  image: 'genisoimage:latest'
+  image: 'building5/genisoimage:latest'
 
 stages:
   - build
