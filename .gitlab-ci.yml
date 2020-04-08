@@ -1,10 +1,7 @@
-default:
-  image: 'building5/genisoimage:latest'
-
 stages:
   - build
 
 job 0:
   stage: build
   script:
-    - genisoimage -output . -volid cidata -joliet -rock user-data meta-data
+    - genisoimage -output /var/lib/libvirt/images/iso-files -volid cidata -joliet -rock user-data meta-data
