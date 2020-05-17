@@ -1,0 +1,25 @@
+#cloud-config
+password: Parola01
+chpasswd: {expire: False}
+ssh_pwauth: True
+sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+timezone: Europe/Istanbul
+ssh_authorized_keys: 
+  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD1iyRetJ4/O0cAytEegGCd1kOKd0wxniAzPj6vpvQ1UELkvstuGLxPDfMpiDl7SFM5r46CXgm+rVRPNji4Wr47cKXTGORV/3OTKCYd0iLPG3EA5T2tpvwGQyx5lIp8GMIKqf4dNXA0S5brR68+6IBe6v2muJj8a9Iw6gPMSgkbeIgEd9NzEc/wWYRVD/uakuFgyp6S1bZ0+AxvXzsYwfCJkjDyzlrHycE9DWLn0ksiexnIZEjyYGTmYDWHC9E6XvzXIVug1gUqMkuuiK3mpK4ZNhlap/YSJv5M+u+ey28o6blbg93CVeV+paue7t8HBeC0UJHDcs7ULjr8Jt556Ebl user01@lubuntu01
+
+apt:
+  primary:
+    - arches: [default]
+      uri: http://tr.archive.ubuntu.com/ubuntu/
+package_update: true
+package_upgrade: true
+packages:
+  - cmatrix
+runcmd: 
+  - systemctl disable cloud-config.service
+  - systemctl disable cloud-final.service
+  - systemctl disable cloud-init-local.service
+  - systemctl disable cloud-init.service
+  - localectl set-keymap trq
+
+
